@@ -318,6 +318,15 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
+        if hvac_mode == HVAC_MODE_OFF and self._hvac_mode == HVAC_MODE_OFF:
+            await self.async_update_ha_state()
+            return
+        
+        if not hvac_mode == HVAC_MODE_OFF and self._hvac_mode == HVAC_MODE_OFF:
+            if 'on' in self._commands:
+                await self._controller.send(self._commands['on'])
+                await asyncio.sleep(self._delay)
+        
         self._hvac_mode = hvac_mode
         
         if not hvac_mode == HVAC_MODE_OFF:
