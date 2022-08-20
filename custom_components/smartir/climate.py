@@ -375,9 +375,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await self._controller.send(self._commands['off'])
                     return
 
-                if 'on' in self._commands:
-                    await self._controller.send(self._commands['on'])
-                    await asyncio.sleep(self._delay)
+                #if 'on' in self._commands:
+                #    await self._controller.send(self._commands['on'])
+                #    await asyncio.sleep(self._delay)
 
                 if self._support_swing == True:
                     await self._controller.send(
